@@ -3,7 +3,11 @@ uuid = "17aaabce-7a6c-490f-b928-803eecc3ccfe"
 authors = ["Javier González Monge"]
 version = "0.1.0"
 
+[deps]
+Pluto = "c3e4b0f8-55cb-11ea-2926-15256bba5781"
+
 [compat]
+Pluto = "0.19"
 julia = "1.8"
 
 [extras]
