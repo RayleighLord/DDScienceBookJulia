@@ -6,7 +6,7 @@ using InteractiveUtils
 
 # ╔═╡ 58fdf9e2-8dc6-43e2-9798-8e992dac2053
 begin
-	using PlutoUI
+	using PlutoUI, LinearAlgebra
 end
 
 # ╔═╡ 719af058-3505-4ede-be04-557a448d8ade
@@ -19,8 +19,8 @@ html"""
 		<p class="nb-intro-header"> Chapter 1 </p>
 		<p class="nb-intro-title"> Overview of the SVD </p>
 		<p style="text-align:center;"> 
-			<img src="https://github.com/RayleighLord/Resources/blob/main/img/logos/logo.png?raw=true" alt="RayleighLord"
-			width="30%"
+			<img src="https://github.com/RayleighLord/DDScienceBookJulia/blob/main/DATA/svd_overview.png?raw=true" alt="SVD"
+			width="35%"
 			class="logo">
 		</p>
 	</div>
@@ -108,13 +108,39 @@ main preamble {
 </style>
 """
 
+# ╔═╡ e25bba36-38e0-408d-a157-fc61691023da
+md"""
+# SVD for a random rectangular matrix
+"""
+
+# ╔═╡ 5f9e968c-836f-4a3b-b314-44ad30620c54
+X = rand(5, 3)
+
+# ╔═╡ 9651895a-4145-4139-941d-eb6c0d422ccf
+md"""
+#### Complete SVD
+"""
+
+# ╔═╡ f07085e4-8f40-4cb8-9a65-11b11afd4204
+U, Σ, V = svd(X; full = true)
+
+# ╔═╡ 83d294b3-e182-4cba-9959-f7651fbf773f
+md"""
+#### Economy SVD
+This returns only the $k = \min(n, m)$ modes of the SVD. (The default value in Julia is to compute the economic SVD)
+"""
+
+# ╔═╡ 047cb3b0-0445-40a1-860f-008ee3a23a30
+Û, Σ̂, V̂ = svd(X)
+
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
 [compat]
-PlutoUI = "~0.7.39"
+PlutoUI = "~0.7.40"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -123,7 +149,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.8.0"
 manifest_format = "2.0"
-project_hash = "6ff2529dffd0652d0349be095d4d180abf958f56"
+project_hash = "3731524a0be8981c0b3969f8e7511b0d5e2849dc"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -265,9 +291,9 @@ version = "1.8.0"
 
 [[deps.PlutoUI]]
 deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "Markdown", "Random", "Reexport", "UUIDs"]
-git-tree-sha1 = "8d1f54886b9037091edf146b517989fc4a09efec"
+git-tree-sha1 = "a602d7b0babfca89005da04d89223b867b55319f"
 uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
-version = "0.7.39"
+version = "0.7.40"
 
 [[deps.Printf]]
 deps = ["Unicode"]
@@ -354,5 +380,11 @@ version = "17.4.0+0"
 # ╔═╡ Cell order:
 # ╟─719af058-3505-4ede-be04-557a448d8ade
 # ╠═58fdf9e2-8dc6-43e2-9798-8e992dac2053
+# ╟─e25bba36-38e0-408d-a157-fc61691023da
+# ╠═5f9e968c-836f-4a3b-b314-44ad30620c54
+# ╟─9651895a-4145-4139-941d-eb6c0d422ccf
+# ╠═f07085e4-8f40-4cb8-9a65-11b11afd4204
+# ╟─83d294b3-e182-4cba-9959-f7651fbf773f
+# ╠═047cb3b0-0445-40a1-860f-008ee3a23a30
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
