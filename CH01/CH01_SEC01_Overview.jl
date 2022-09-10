@@ -16,7 +16,7 @@ html"""
 
 <div class="nb-intro">
 	<div class="header-box"> 
-		<p class="nb-intro-header"> Chapter 1 </p>
+		<p class="nb-intro-header"> Chapter 1.1 </p>
 		<p class="nb-intro-title"> Overview of the SVD </p>
 		<p style="text-align:center;"> 
 			<img src="https://github.com/RayleighLord/DDScienceBookJulia/blob/main/DATA/svd_overview.png?raw=true" alt="SVD"
@@ -149,7 +149,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.8.0"
 manifest_format = "2.0"
-project_hash = "3731524a0be8981c0b3969f8e7511b0d5e2849dc"
+project_hash = "d77bbb8de3a0eed7452960a8f7d43f370f990a27"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
