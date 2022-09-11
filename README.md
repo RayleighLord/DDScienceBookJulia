@@ -15,4 +15,4 @@ Cambridge Textbook, 2022
 Copyright 2022, All Rights Reserved
 http://databookuw.com/
 
-You can also find the Python code of the first edition of this book in https://github.com/dynamicslab/databook_python and the MATLAB version in https://github.com/dynamicslab/databook_matlab.
+You can also find the [Python](https://github.com/dynamicslab/databook_python) code of the first edition of this book and the [MATLAB](https://github.com/dynamicslab/databook_matlab) version.
