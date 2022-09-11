@@ -6,7 +6,7 @@ using InteractiveUtils
 
 # ╔═╡ 58fdf9e2-8dc6-43e2-9798-8e992dac2053
 begin
-	using PlutoUI, LinearAlgebra
+	using PlutoUI, LinearAlgebra, Statistics
 	using Plots, LaTeXStrings, CSVFiles, DataFrames, CSV
 end
 
@@ -119,13 +119,13 @@ md"""
 """
 
 # ╔═╡ a0ed8a87-1372-473f-9c54-f6239158f4ca
-load("../DATA/housing.csv"; header_exists = false) |> DataFrame |> Matrix
+H = load("https://raw.githubusercontent.com/RayleighLord/DDScienceBookJulia/main/DATA/housing.csv"; header_exists = false) |> DataFrame |> Matrix
 
 # ╔═╡ db4935fc-eaf7-48d2-b580-1340531ce204
-A = load("https://raw.githubusercontent.com/RayleighLord/DDScienceBookJulia/main/DATA/hald_ingredients.csv"; header_exists = false) |> DataFrame |> Matrix
+A = hcat(ones(size(H, 1)), H[:, 1:(end-1)])
 
 # ╔═╡ 67920869-dfc5-4353-8f2e-229df81c9e23
-b = load("https://raw.githubusercontent.com/RayleighLord/DDScienceBookJulia/main/DATA/hald_heat.csv"; header_exists = false) |> DataFrame |> Matrix
+b = H[:, end]
 
 # ╔═╡ c443408c-c678-4314-b708-d2d29fdd1295
 begin
@@ -136,10 +136,36 @@ end
 # ╔═╡ 12ef393a-e557-4147-a4f3-a99a6e21140e
 begin
 	plot(0:length(b)-1, b; 
-	label = L"\mathrm{Heat \ data}", xlims = (0, 12), ylims = (70, 120),
-	legend = :topleft, color = :black,
-	xlabel = L"\mathrm{Mixture}", ylabel = L"\mathrm{Heat} \ [\mathrm{cal/g}]")
+	label = L"\mathrm{Housing \ Value}", xlims = (0, length(b)), ylims = (-10, 60),
+	legend = :bottomleft, color = :black,
+	xlabel = L"\mathrm{Neighborhood}", ylabel = L"\mathrm{Median \ Home \ Value } \ [\mathrm{1k \ dolars}]")
 	plot!(0:length(b)-1, A * x; label = L"\mathrm{Regression}", marker = (:circle, 5), color = :salmon)
+end
+
+# ╔═╡ 4d6f3046-4c37-407e-9ac0-3fae3b9af5c1
+begin
+	idx = sortperm(H[:, end])
+	
+	plot(0:length(b)-1, b[idx]; 
+	label = L"\mathrm{Housing \ Value}", xlims = (0, length(b)), ylims = (-10, 60),
+	legend = :topleft, color = :black,
+	xlabel = L"\mathrm{Neighborhood}", ylabel = L"\mathrm{Median \ Home \ Value } \ [\mathrm{1k \ dolars}]")
+	plot!(0:length(b)-1, A[idx, :] * x; label = L"\mathrm{Regression}", marker = (:circle, 5), color = :salmon)
+end
+
+# ╔═╡ 093c2519-dd5c-45f8-ba6f-404e75cfc08c
+let
+	Ā = mean(A; dims = 1)
+
+	A₂ = A .- kron(ones(size(A, 1)), Ā)
+	A₂std = std(A₂, dims = 1)
+	@. A₂ = A₂ / A₂std
+	A₂[:, 1] .= ones(size(A, 1))
+
+	U, Σ, V = svd(A₂)
+	x = V * (diagm(Σ) \ (U' * b))
+	bar(x[2:end]; legend = false, size = (700, 400), xlims = (0, 14),
+		xlabel = L"\mathrm{Attribute}", ylabel = L"\mathrm{Significance}")
 end
 
 # ╔═╡ edf38dfa-40f9-412a-8d7c-114ba7a0ba2d
@@ -165,6 +191,7 @@ LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [compat]
 CSV = "~0.10.4"
@@ -181,7 +208,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.8.1"
 manifest_format = "2.0"
-project_hash = "9a7c2cf3f42befbf83b56b4af25ab8c08d06cd2b"
+project_hash = "92af053d9215b4a67a9b7fbf68871aee491569d3"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -1322,6 +1349,8 @@ version = "1.4.1+0"
 # ╠═67920869-dfc5-4353-8f2e-229df81c9e23
 # ╠═c443408c-c678-4314-b708-d2d29fdd1295
 # ╠═12ef393a-e557-4147-a4f3-a99a6e21140e
+# ╠═4d6f3046-4c37-407e-9ac0-3fae3b9af5c1
+# ╠═093c2519-dd5c-45f8-ba6f-404e75cfc08c
 # ╠═edf38dfa-40f9-412a-8d7c-114ba7a0ba2d
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
