@@ -13,6 +13,6 @@ Data Driven Science And Engineering: Machine Learning, Dynamical Systems, and Co
 by S. L. Brunton and J. N. Kutz
 Cambridge Textbook, 2022
 Copyright 2022, All Rights Reserved
-http://databookuw.com/
+<http://databookuw.com/>
 
 You can also find the [Python](https://github.com/dynamicslab/databook_python) code of the first edition of this book and the [MATLAB](https://github.com/dynamicslab/databook_matlab) version.
